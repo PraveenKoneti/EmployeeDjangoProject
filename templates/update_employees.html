@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    {% include 'cdlines.html'%}
+  </head>
+  <style media="screen">
+    input[name]{
+      margin-top:5px;
+    }
+  </style>
+  <body>
+    <div class="container">
+      <p>
+      <h1 class="text-center"> Enter your Data here </h1>
+    </p>
+
+      <div class="row">
+          <div class="ofset-md-3 col-md-3">
+          </div>
+        <div class="ofset-md-3 col-md-6">
+          <form method="POST" class="shadow-lg">
+            {% csrf_token %}
+
+            <input type="text" id="fname" name="fname" class="form-control" placeholder="Enter First Name" value="{{employees.first_name}}">
+
+            <input type="text" name="lname" class="form-control" placeholder="Enter Last Name" value="{{employees.last_name}}">
+
+            <input type="text" name="email" class="form-control" placeholder="Enter Email Id" value="{{employees.Emailid}}"required>
+
+            <input type="text" id="mobile" name="mobile" class="form-control" maxlength="10" pattern="[0-9]{10}" placeholder="Enter Mobile" value="{{employees.Mobile}}"required>
+
+            <input type="text" name="location" class="form-control" placeholder="Enter Location Name" value="{{employees.location}}">
+
+            <center>
+              <br>
+              <input type="submit" value="Update" class="btn btn-outline-success">
+              <input type="reset" value="Clear" class="btn btn-outline-danger">
+              <a href="{% url 'homepage' %}" class="btn btn-outline-primary mt-6">Back</a>
+              </br>
+                </center>
+          </form>
+          <script>
+            const fnameInput = document.getElementById('fname');
+            const usernameError = document.getElementById('usernameError');
+    
+            fnameInput.addEventListener('invalid', function(event) {
+                event.preventDefault();
+                usernameError.textContent = 'Please Enter Employee Name except numbers or special characters';
+            });
+    
+            fnameInput.addEventListener('input', function() {
+                usernameError.textContent = '';
+            });
+        </script>
+          </div>
+          </div>
+          </div>
+  </body>
+</html>

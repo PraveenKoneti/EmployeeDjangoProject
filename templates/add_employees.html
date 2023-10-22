@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    {% include 'cdlines.html'%}
+  </head>
+  <style media="screen">
+    input[name]{
+      margin-top: 4px;
+    }
+    .error-message {
+      color: red;
+      font-size: 12px;
+    }
+  </style>
+  <body>
+    <div class="container">
+      <h1 class="text-center">Enter your Data here</h1>
+      <div class="row">
+        <div class="offset-md-3 col-md-6">
+          <form method="POST" class="shadow-lg">
+            {% csrf_token %}
+            <input type="text" name="fname" class="form-control" pattern="[a-zA-Z.].]+" placeholder="Enter First Name" oninput="validateFirstName(this)">
+            <span class="error-message" id="fname-error"></span>
+            <input type="text" name="lname" class="form-control" pattern="[A-Za-z. ]+" placeholder="Enter Last Name" oninput="validateLastName(this)" >
+            <span class="error-message" id="lname-error"></span>
+            <input type="text" name="email" class="form-control" pattern="[a-zA-Z0-9._%+-]+@.+\.[a-zA-Z]{2,4}" placeholder="Enter Email Id">
+            <span class="error-message" id="email-error"></span>
+            <br>
+            <input type="text" id="mobile" name="mobile" class="form-control" maxlength="10" pattern="[0-9]{10}" placeholder="Enter mobile number">
+            <span class="error-message" id="mobile-error"></span>
+            <input type="text" name="location" class="form-control" placeholder="Enter Location Name">
+            <span class="error-message" id="location-error"></span>
+            <center>
+              <input type="submit" value="Create" class="btn btn-outline-success" onclick="return validateForm()">
+              <input type="reset" value="Clear" class="btn btn-outline-danger"><br>
+              <a href="{% url 'homepage' %}" class="btn btn-outline-primary mt-2">Go To Main Page</a>
+            </center>
+          </form>
+        </div>
+      </div>
+    </div>
+    
+    <script>
+       function validateFirstName(input) {
+        const regex = /^[A-Za-z. ]*$/; // Regular expression to match uppercase letters, lowercase letters, and period (.)
+        const errorSpan = document.getElementById("fname-error");
+
+        if (!regex.test(input.value)) {
+          errorSpan.textContent = "Only A-Z, a-z, and . are allowed.";
+        } else {
+          errorSpan.textContent = ""; // Clear the error message
+        }
+      }
+      function validateLastName(input) {
+        const regex = /^[A-Za-z. ]*$/; // Regular expression to match uppercase letters, lowercase letters, and period (.)
+        const errorSpan = document.getElementById("lname-error");
+
+        if (!regex.test(input.value)) {
+          errorSpan.textContent = "Only A-Z, a-z, and . are allowed.";
+        } else {
+          errorSpan.textContent = ""; // Clear the error message
+        }
+      }
+      function validateForm() {
+        var fname = document.getElementsByName("fname")[0].value;
+        var lname = document.getElementsByName("lname")[0].value;
+        var email = document.getElementsByName("email")[0].value;
+        var mobile = document.getElementsByName("mobile")[0].value;
+        var location = document.getElementsByName("location")[0].value;
+        
+        var isValid = true;
+        
+        if (fname === "") {
+          document.getElementById("fname-error").innerText = "First Name is required.";
+          isValid = false;
+        } else {
+          document.getElementById("fname-error").innerText = "";
+        }
+        
+        if (lname === "") {
+          document.getElementById("lname-error").innerText = "Last Name is required.";
+          isValid = false;
+        } else {
+          document.getElementById("lname-error").innerText = "";
+        }
+        
+        if (email === "") {
+          document.getElementById("email-error").innerText = "Email is required.";
+          isValid = false;
+        } else {
+          document.getElementById("email-error").innerText = "";
+        }
+        
+        if (mobile === "") {
+          document.getElementById("mobile-error").innerText = "Mobile No is required.";
+          isValid = false;
+        } else {
+          document.getElementById("mobile-error").innerText = "";
+        }
+        
+        if (location === "") {
+          document.getElementById("location-error").innerText = "Location is required.";
+          isValid = false;
+        } else {
+          document.getElementById("location-error").innerText = "";
+        }
+        
+        return isValid;
+      }
+    </script>
+  </body>
+</html>
